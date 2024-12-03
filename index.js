@@ -73,7 +73,7 @@ app.post('/api/shorten', async (req, res) => {
 
     while (!isUnique) {
       const shortString = generateShortString();
-      shortUrl = `${process.env.BASE_URL || 'http://localhost:3000'}/${shortString}`;
+      shortUrl = `${process.env.BASE_URL}/${shortString}`;
       const existingShortUrl = await Url.findOne({ where: { shortUrl } });
       if (!existingShortUrl) {
         isUnique = true;
@@ -93,7 +93,7 @@ app.post('/api/shorten', async (req, res) => {
 // API to redirect to the long URL based on the short string
 app.get('/:shortString', async (req, res) => {
   const { shortString } = req.params;
-  const shortUrl = `${process.env.BASE_URL || 'http://localhost:3000'}/${shortString}`;
+  const shortUrl = `${process.env.BASE_URL}/${shortString}`;
 
   try {
     // Find the long URL based on the short URL

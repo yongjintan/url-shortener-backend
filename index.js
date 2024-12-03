@@ -16,11 +16,12 @@ app.use(bodyParser.json());
 // Initialize Sequelize (PostgreSQL)
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
   dialect: 'postgres',
+  dialectModule: require('pg'),
   protocol: 'postgres',
   dialectOptions: {
     ssl: {
       require: true,
-      rejectUnauthorized: false, // You might need to adjust this based on your SSL configuration
+      rejectUnauthorized: false,
     },
   },
   logging: false, // Disable logging for cleaner output

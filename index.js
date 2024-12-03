@@ -22,7 +22,8 @@ const sequelize = new Sequelize(
     host: process.env.DB_HOST || '127.0.0.1',
     port: process.env.DB_PORT || 5432,
     dialect: 'postgres',
-    logging: false, // Disable logging for cleaner output
+    dialectModule: require('pg'),
+    logging: false, // Disable logging for cleaner output    
   }
 );
 

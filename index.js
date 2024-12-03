@@ -1,4 +1,5 @@
 require('dotenv').config();
+const Pool = require('pg').Pool;
 const express = require('express');
 const bodyParser = require('body-parser');
 const { Sequelize, DataTypes } = require('sequelize');
@@ -14,18 +15,14 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Initialize Sequelize (PostgreSQL)
-const sequelize = new Sequelize(
-  process.env.DB_NAME || 'url_shortener_dev',
-  process.env.DB_USER || 'postgres',
-  process.env.DB_PASSWORD || 'password',
-  {
-    host: process.env.DB_HOST || '127.0.0.1',
-    port: process.env.DB_PORT || 5432,
-    dialect: 'postgres',
-    dialectModule: require('pg'),
-    logging: false, // Disable logging for cleaner output    
-  }
-);
+
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
 
 // Define the URL model
 const Url = sequelize.define('url_relation', {

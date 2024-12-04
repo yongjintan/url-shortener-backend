@@ -62,4 +62,23 @@ npm start
 }
 ```
 
+## Contributing
+
+Contributions are welcome! Please fork the repository and submit a pull request with your improvements.
+
+1. Fork the repo.
+2. Create a new branch (feature/amazing-feature).
+3. Commit your changes.
+4. Push to the branch.
+5. Open a pull request.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+
+## Acknowledgments
+Built with Node.js, Express.js, and Postgres.
+
+
 

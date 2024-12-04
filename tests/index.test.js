@@ -1,6 +1,7 @@
 const request = require('supertest');
 const sequelize = require('../config/database'); 
 const app = require('../index');
+require('dotenv').config({ path: '.env.test' });
 
 
 describe('POST /api/shorten', () => {

@@ -54,28 +54,28 @@ app.post('/api/shorten', async (req, res) => {
       return res.json({ shortUrl: existingUrl.shortUrl });
     }
 
-    // Generate a unique short URL
-    let shortUrl;
-    let isUnique = false;
-
-    while (!isUnique) {
+    // Generate a unique short URL with a maximum of 10 attempts
+    const maxAttempts = 10;
+    for (let attempts = 0; attempts < maxAttempts; attempts++) {
       const shortString = generateShortString();
-      shortUrl = `${process.env.BASE_URL}/${shortString}`;
+      const shortUrl = `${process.env.BASE_URL}/${shortString}`;
+
       const existingShortUrl = await Url.findOne({ where: { shortUrl } });
       if (!existingShortUrl) {
-        isUnique = true;
+        // Save the mapping in the database
+        const newUrl = await Url.create({ longUrl, shortUrl });
+        return res.json({ shortUrl: newUrl.shortUrl });
       }
     }
 
-    // Save the mapping in the database
-    const newUrl = await Url.create({ longUrl, shortUrl });
-
-    res.json({ shortUrl: newUrl.shortUrl });
+    // If no unique URL is found within the limit, throw an error
+    throw new Error(`Failed to generate a unique short URL after ${maxAttempts} attempts.`);
   } catch (error) {
     console.error('Error generating short URL:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 // API to redirect to the long URL based on the short string
 app.get('/:shortString', async (req, res) => {

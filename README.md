@@ -6,9 +6,7 @@ A robust and scalable backend service for shortening URLs, designed to provide e
 
 - **Shorten URLs**: Generate short, unique URLs for long web addresses.
 - **Redirects**: Fast redirection from short URLs to their original destinations.
-- **Analytics**: Track usage statistics for shortened URLs (e.g., click counts, locations).
 - **Custom URLs**: Option to create custom aliases for URLs.
-- **Scalable**: Designed to handle high traffic and large datasets.
 
 ---
 
